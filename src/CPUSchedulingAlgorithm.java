@@ -41,7 +41,7 @@ public abstract class CPUSchedulingAlgorithm {
         return avg / rows.size();
     }
 
-    /*
+
 
     public double getAverageResponseTime()
     {
@@ -54,7 +54,7 @@ public abstract class CPUSchedulingAlgorithm {
 
         return avg / rows.size();
     }
-     */
+
 
     // getter
 
