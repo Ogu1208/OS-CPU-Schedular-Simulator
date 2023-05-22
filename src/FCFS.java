@@ -47,7 +47,7 @@ public class FCFS extends CPUSchedulingAlgorithm{
             row.setWaitingTime(this.getEvent(row).getStartTime() - row.getArrivalTime());
             // turnAroundTime = 대기 시간 + 실행 시간(burst time)
             row.setTurnaroundTime(row.getWaitingTime() + row.getBurstTime());
-            // responseTime = 프로세스가 처음으로 CPU를 할당받는 시간 - 도착시간
+            // responseTime = 첫 작업을 시작한 후 첫 번째 출력(반응)이 나오기 전까지 시간
             row.setResponseTime(row.getWaitingTime() + 1);
         }
     }
