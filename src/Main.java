@@ -24,7 +24,7 @@ public class Main {
 
         for (Row row : object.getRows())
         {
-            System.out.println(row.getProcessName() + "\t" + row.getArrivalTime() + "\t" + row.getBurstTime() + "\t" + row.getWaitingTime() + "\t" + row.getTurnaroundTime());
+            System.out.println(row.getProcessName() + "\t\t" + row.getArrivalTime() + "\t" + row.getBurstTime() + "\t" + row.getWaitingTime() + "\t" + row.getTurnaroundTime());
         }
         System.out.println();
 
