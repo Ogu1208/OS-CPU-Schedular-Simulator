@@ -20,16 +20,11 @@ public class Main {
 
     public static void display(CPUSchedulingAlgorithm object)
     {
-        System.out.println("Process\tAT\tBT\tWT\tTAT\tRT");
+        System.out.println("Process\tAT\tBT\tWT\tTAT");
 
         for (Row row : object.getRows())
         {
-            System.out.println(row.getProcessName() + "\t\t" +
-                    row.getArrivalTime() + "\t" +
-                    row.getBurstTime() + "\t" +
-                    row.getWaitingTime() + "\t" +
-                    row.getTurnaroundTime() + "\t" +
-                    row.getResponseTime());
+            System.out.println(row.getProcessName() + "\t\t" + row.getArrivalTime() + "\t" + row.getBurstTime() + "\t" + row.getWaitingTime() + "\t" + row.getTurnaroundTime());
         }
         System.out.println();
 
@@ -44,8 +39,6 @@ public class Main {
             }
         }
 
-        System.out.println("\n\nAverage WT: " + object.getAverageWaitingTime() +
-                "\nAverage TAT: " + object.getAverageTurnAroundTime() +
-                "\nAverage RT: " + object.getAverageResponseTime());
+        System.out.println("\n\nAverage WT: " + object.getAverageWaitingTime() + "\nAverage TAT: " + object.getAverageTurnAroundTime());
     }
 }
