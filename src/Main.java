@@ -6,6 +6,8 @@ public class Main {
         fcfs();
         System.out.println("-----------------SJF-----------------");
         sjf();
+        System.out.println("-----------------PNP-----------------");
+        pnp();
     }
 
     public static void fcfs()
@@ -28,6 +30,16 @@ public class Main {
         sjf.addRow(new Row("P5", 7, 1));
         sjf.process();
         display(sjf);
+    }
+
+    public static void pnp()
+    {
+        CPUSchedulingAlgorithm pnp = new PriorityNonPreemptive();
+        pnp.addRow(new Row("P1", 0, 30, 3));
+        pnp.addRow(new Row("P2", 3, 18, 2));
+        pnp.addRow(new Row("P3", 6, 9, 1));
+        pnp.process();
+        display(pnp);
     }
 
     public static void display(CPUSchedulingAlgorithm object)
