@@ -105,4 +105,5 @@ public abstract class CPUSchedulingAlgorithm {
     public void setTimeQuantum(int timeQuantum) {
         this.timeQuantum = timeQuantum;
     }
+
 }

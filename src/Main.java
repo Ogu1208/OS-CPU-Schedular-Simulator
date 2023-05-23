@@ -8,7 +8,10 @@ public class Main {
         sjf();
         System.out.println("-----------------PNP-----------------");
         pnp();
+        System.out.println("-----------------HRN-----------------");
+        hrn();
     }
+
 
     public static void fcfs()
     {
@@ -40,6 +43,15 @@ public class Main {
         pnp.addRow(new Row("P3", 6, 9, 1));
         pnp.process();
         display(pnp);
+    }
+
+    private static void hrn() {
+        CPUSchedulingAlgorithm hrn = new HRN();
+        hrn.addRow(new Row("P1", 0,30));
+        hrn.addRow(new Row("P2", 3, 18));
+        hrn.addRow(new Row("P3", 6, 9));
+        hrn.process();
+        display(hrn);
     }
 
     public static void display(CPUSchedulingAlgorithm object)

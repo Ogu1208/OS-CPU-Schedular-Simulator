@@ -43,6 +43,9 @@ public class Row {
     public int getResponseTime() { return responseTime; }
 
     // setter
+
+    public void setPriority(int priority) { this.priority = priority; }
+
     public void setBurstTime(int burstTime)
     {
         this.burstTime = burstTime;
