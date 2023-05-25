@@ -45,7 +45,8 @@ public class HRN extends CPUSchedulingAlgorithm {
             for (Row row : availableRows) {
                 System.out.println(row.getProcessName() + ": " + row.getPriority() + ", " + row.getWaitingTime());
             }
-            */
+            ::qcd
+            dfd*/
 
 
             // 우선순위가 높은 순(숫자가 큰 순 = 에이징 순)으로 정렬한다. (Priority)
