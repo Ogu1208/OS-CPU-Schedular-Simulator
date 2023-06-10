@@ -10,6 +10,8 @@ public class Main {
         pnp();
         System.out.println("-----------------HRN-----------------");
         hrn();
+        System.out.println("-----------------HRN-----------------");
+        rr();
     }
 
 
@@ -52,6 +54,17 @@ public class Main {
         hrn.addRow(new Row("P3", 6, 9));
         hrn.process();
         display(hrn);
+    }
+
+    public static void rr()
+    {
+        CPUSchedulingAlgorithm rr = new RoundRobin();
+        rr.setTimeQuantum(10);
+        rr.addRow(new Row("P1", 0,30));
+        rr.addRow(new Row("P2", 3, 18));
+        rr.addRow(new Row("P3", 6, 9));
+        rr.process();
+        display(rr);
     }
 
     public static void display(CPUSchedulingAlgorithm object)
