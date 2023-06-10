@@ -1,10 +1,6 @@
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class RoundRobin extends CPUSchedulingAlgorithm {
-
+public class SRT extends CPUSchedulingAlgorithm {
     @Override
     public void process() {
         // Sort list of objects using Collection.sort() with lambdas only
@@ -21,43 +17,70 @@ public class RoundRobin extends CPUSchedulingAlgorithm {
 
         // rows = this.getRows를 깊은 복사
         List<Row> rows = Utility.deepCopy(this.getRows());
-        int time = rows.get(0).getArrivalTime();
+        int time = rows.get(0).getArrivalTime();  // 첫 번째 프로세스의 도착시간
 
         // time Quantum 설정
         int timeQuantum = this.getTimeQuantum();
 
         while (!rows.isEmpty()) {
-            Row row = rows.get(0);
+            // available Row의 List를 만든다.
+            List<Row> availableRows = new ArrayList();
+
+            // for문을 돌며 time보다 row의 도착시간이 작거나 같으면 available Row에 추가한다.
+            for (Row row : rows) {
+                if (row.getArrivalTime() <= time) {
+                    availableRows.add(row);
+                }
+            }
+
+            // burstTime이 작은(남아있는 작업 시간이 가장 적은 순)으로 정렬한다. (Shortest Remaining Time)
+            Collections.sort(availableRows, (Object o1, Object o2) -> {
+                if (((Row) o1).getBurstTime() == ((Row) o2).getBurstTime()) {
+                    return 0;
+                } else if (((Row) o1).getBurstTime() < ((Row) o2).getBurstTime()) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            });
+
+            // 가능한 rows들 중 burstTime이 가장 적은 row(process)를 구한다.
+            Row row = availableRows.get(0);
+
             // 한 텀의  burst time 계산
             // (timeQuantum보다 burstTime이 작으면 burstTime만큼, 아니라면 timeQuantum만큼 실행)
             int bt = (row.getBurstTime() < timeQuantum ? row.getBurstTime() : timeQuantum);
 
-            // timeline(List<Event>)에 가장 먼저 도착한 row(process)의 Event를 추가
+            // timeline(List<Event>)에 burstTime이 가장 작은(남아있는 작업 시간이 가장 적은) row(process)의 Event를 추가
             // startTime : time
             // finishTime : time + row의 bt
             this.getTimeline().add(new Event(row.getProcessName(), time, time + bt));
             time += bt;  // time 갱신 (timme+=bt)
-            rows.remove(0);
 
-            // 만약 프로세스의 burstTime이 timeQuantum보다 크다면
-            if (row.getBurstTime() > timeQuantum) {
-                // burtTime을 burstTime - timeQuantum으로 갱신
-                row.setBurstTime(row.getBurstTime() - timeQuantum);
+            // row의 burstTime = burstTime - bt 로 업데이트
+            row.setBurstTime(row.getBurstTime() - bt);
 
-                // timequantum만큼 일한 프로세스 row를 큐의 뒤에 추가
+            // 만약 해당 process의 burstTime이 끝났다면, 같은 이름의 프로세스를 찾아 rows행에서 remove시킨다.
+            if (row.getBurstTime() == 0) {
                 for (int i = 0; i < rows.size(); i++) {
-                    // 만약 rows의 행이 방금 작업이 끝난 시간 time보다 늦게 도착한다면
-                    if (rows.get(i).getArrivalTime() > time) {
-                        // 해당 자리에 방금 끝난 프로세스 row를 추가
-                        rows.add(i, row);
-                        break;
-                    }
-                    // 아니라면 큐의 마지막에 row 추가
-                    else if (i == rows.size() - 1) {
-                        rows.add(row);
+                    if (rows.get(i).getProcessName().equals(row.getProcessName())) {
+                        rows.remove(i);
                         break;
                     }
                 }
+            }
+        }
+
+        // for문으로 Event의 List를 뒤에서부터 거꾸로 찾으면서
+        for (int i = this.getTimeline().size() - 1; i > 0; i--) {
+            List<Event> timeline = this.getTimeline();
+
+            // timeline의 마지막 프로세스와 마지막-1의 프로세스가 같다면
+            if (timeline.get(i - 1).getProcessName().equals(timeline.get(i).getProcessName())) {
+                // 마지막-1의 프로세스의 finishTime을 마지막 프로세스의 finishTime으로 업데이트하고
+                timeline.get(i - 1).setFinishTime(timeline.get(i).getFinishTime());
+                // 마지막 프로세스를 삭제한다.
+                timeline.remove(i);
             }
         }
 
@@ -94,4 +117,3 @@ public class RoundRobin extends CPUSchedulingAlgorithm {
         }
     }
 }
-
