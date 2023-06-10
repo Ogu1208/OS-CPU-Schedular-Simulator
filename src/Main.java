@@ -14,6 +14,8 @@ public class Main {
         hrn();
         System.out.println("-----------------RR-----------------");
         rr();
+        System.out.println("-----------------SRT-----------------");
+        srt();
     }
 
 
@@ -78,6 +80,17 @@ public class Main {
         rr.addRow(new Row("P3", 6, 9));
         rr.process();
         display(rr);
+    }
+
+    public static void srt()
+    {
+        CPUSchedulingAlgorithm srt = new SRT();
+        srt.setTimeQuantum(10);
+        srt.addRow(new Row("P1", 0,30));
+        srt.addRow(new Row("P2", 3, 18));
+        srt.addRow(new Row("P3", 6, 9));
+        srt.process();
+        display(srt);
     }
 
     public static void display(CPUSchedulingAlgorithm object)

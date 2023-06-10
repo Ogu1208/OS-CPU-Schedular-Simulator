@@ -10,8 +10,8 @@
 
 - FCFS
 - SJF(Shortest Job First)
+- HRN
 - Priority Non Preemptive 
 - Priority Preemptive
-- HRN
 - RoundRobin
 - SRT(Shortest Remaining Time)
