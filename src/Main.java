@@ -8,9 +8,11 @@ public class Main {
         sjf();
         System.out.println("-----------------PNP-----------------");
         pnp();
+        System.out.println("-----------------PSP-----------------");
+        psp();
         System.out.println("-----------------HRN-----------------");
         hrn();
-        System.out.println("-----------------HRN-----------------");
+        System.out.println("-----------------RR-----------------");
         rr();
     }
 
@@ -45,6 +47,17 @@ public class Main {
         pnp.addRow(new Row("P3", 6, 9, 1));
         pnp.process();
         display(pnp);
+    }
+
+    public static void psp()
+    {
+        CPUSchedulingAlgorithm psp = new PriorityPreemtive();
+        psp.addRow(new Row("P1", 0, 30, 3));
+        psp.addRow(new Row("P2", 3, 18, 2));
+        psp.addRow(new Row("P3", 6, 9, 1));
+        psp.process();
+        display(psp);
+        display(psp);
     }
 
     private static void hrn() {

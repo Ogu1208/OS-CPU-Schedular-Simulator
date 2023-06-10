@@ -72,7 +72,8 @@ public class RoundRobin extends CPUSchedulingAlgorithm {
                 // row와 evnet의 프로세스 이름이 같으면
                 if (event.getProcessName().equals(row.getProcessName())) {
                     // map에 프로세스 이름의 key가 있다면 (이미 한번 이상 burstTime만큼 작업했다면)
-                    if (map.containsKey(event.getProcessName())) {   // 기존  waitingTime에 (이전에 작업했을 때의 finishTime - 이번 작업의 startTime)을 더함.
+                    if (map.containsKey(event.getProcessName())) {
+                        // 기존  waitingTime에 (이전에 작업했을 때의 finishTime - 이번 작업의 startTime)을 더함.
                         int w = event.getStartTime() - (int) map.get(event.getProcessName());
                         row.setWaitingTime(row.getWaitingTime() + w);
                     }
