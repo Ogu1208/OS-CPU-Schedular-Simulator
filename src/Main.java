@@ -2,6 +2,10 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        GUI gui = new GUI();
+    }
+
+    public static void test() {
         System.out.println("-----------------FCFS----------------");
         fcfs();
         System.out.println("-----------------SJF-----------------");
@@ -17,7 +21,6 @@ public class Main {
         System.out.println("-----------------SRT-----------------");
         srt();
     }
-
 
     public static void fcfs()
     {
