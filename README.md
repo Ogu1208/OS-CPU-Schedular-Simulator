@@ -6,6 +6,12 @@
 - IntelliJ
 - Java Swing
 
+## GUI 구성
+![image](https://github.com/Ogu1208/OS-CPU-Schedular-Simulator/assets/76902448/cf581ebe-fbd3-43d5-83dc-bc4d887310d3)
+![image](https://github.com/Ogu1208/OS-CPU-Schedular-Simulator/assets/76902448/84589f3a-578a-4f51-9f89-cd8e58a391d7)
+
+
+
 ## Scheduling
 
 - FCFS
