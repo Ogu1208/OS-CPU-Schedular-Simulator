@@ -2,22 +2,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class SJF extends CPUSchedulingAlgorithm{
+public class SJF extends CPUSchedulingAlgorithm {
     @Override
     public void process() {
         // Sort list of objects using Collection.sort() with lambdas only
         // 도착시간(ArrivalTime)을 기준으로 빠른순으로 정렬한다. (도착한 순서대로)
         Collections.sort(this.getRows(), (Object o1, Object o2) -> {
-            if (((Row) o1).getArrivalTime() == ((Row) o2).getArrivalTime())
-            {
+            if (((Row) o1).getArrivalTime() == ((Row) o2).getArrivalTime()) {
                 return 0;
-            }
-            else if (((Row) o1).getArrivalTime() < ((Row) o2).getArrivalTime())
-            {
+            } else if (((Row) o1).getArrivalTime() < ((Row) o2).getArrivalTime()) {
                 return -1;
-            }
-            else
-            {
+            } else {
                 return 1;
             }
         });
@@ -26,32 +21,24 @@ public class SJF extends CPUSchedulingAlgorithm{
         List<Row> rows = Utility.deepCopy(this.getRows());
         int time = rows.get(0).getArrivalTime();
 
-        while (!rows.isEmpty())
-        {
+        while (!rows.isEmpty()) {
             // available Row의 List를 만든다.
             List<Row> availableRows = new ArrayList();
 
             // for문을 돌며 time보다 row의 도착시간이 작거나 같으면 available Row에 추가한다.
-            for (Row row : rows)
-            {
-                if (row.getArrivalTime() <= time)
-                {
+            for (Row row : rows) {
+                if (row.getArrivalTime() <= time) {
                     availableRows.add(row);
                 }
             }
 
             // 실행시간(burst time)이 짧은 순으로 정렬한다. (SJF)
             Collections.sort(availableRows, (Object o1, Object o2) -> {
-                if (((Row) o1).getBurstTime() == ((Row) o2).getBurstTime())
-                {
+                if (((Row) o1).getBurstTime() == ((Row) o2).getBurstTime()) {
                     return 0;
-                }
-                else if (((Row) o1).getBurstTime() < ((Row) o2).getBurstTime())
-                {
+                } else if (((Row) o1).getBurstTime() < ((Row) o2).getBurstTime()) {
                     return -1;
-                }
-                else
-                {
+                } else {
                     return 1;
                 }
             });
@@ -69,10 +56,8 @@ public class SJF extends CPUSchedulingAlgorithm{
 
 
             // for문을 돌며 깊은복사한 rows에서 실행된 row를 찾아 삭제한다.(remove)
-            for (int i = 0; i < rows.size(); i++)
-            {
-                if (rows.get(i).getProcessName().equals(row.getProcessName()))
-                {
+            for (int i = 0; i < rows.size(); i++) {
+                if (rows.get(i).getProcessName().equals(row.getProcessName())) {
                     rows.remove(i);
                     break;
                 }
@@ -80,8 +65,7 @@ public class SJF extends CPUSchedulingAlgorithm{
         }
 
         // for문을 돌며 waitingTime, turnAroundTime, responseTime set
-        for (Row row : this.getRows())
-        {
+        for (Row row : this.getRows()) {
             // waitingTime = 시작 시작 - 도착 시간
             row.setWaitingTime(this.getEvent(row).getStartTime() - row.getArrivalTime());
             // turnAroundTime = 대기 시간 + 실행 시간(burst time)

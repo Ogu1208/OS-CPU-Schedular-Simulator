@@ -76,8 +76,6 @@ public class HRN extends CPUSchedulingAlgorithm {
                     break;
                 }
             }
-
-
         }
 
         // for문을 돌며 waitingTime, turnAroundTime, responseTime set
@@ -90,7 +88,5 @@ public class HRN extends CPUSchedulingAlgorithm {
             row.setResponseTime(row.getWaitingTime() + 1);
 
         }
-
-
     }
 }

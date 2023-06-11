@@ -1,5 +1,5 @@
 public class Row {
-    // Process | AT | BT | Priority | WT | TAT
+    // Process | AT | BT | Priority | WT | TAT | RT
     private String processName;
     private int arrivalTime;
     private int burstTime;
