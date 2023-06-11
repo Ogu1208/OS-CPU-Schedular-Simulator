@@ -16,8 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class GUI
-{
+public class GUI {
     private JFrame frame;
     private JPanel mainPanel;
     private CustomPanel chartPanel;
@@ -36,8 +35,7 @@ public class GUI
     private JComboBox option;
     private DefaultTableModel model;
 
-    public GUI()
-    {
+    public GUI() {
         model = new DefaultTableModel(new String[]{"Process", "AT", "BT", "Priority", "WT", "TAT", "RT"}, 0);
 
         table = new JTable(model);
@@ -48,7 +46,7 @@ public class GUI
         addBtn = new JButton("Add");
         addBtn.setBounds(300, 280, 85, 25);
         addBtn.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        addBtn.addActionListener(new ActionListener(){
+        addBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 model.addRow(new String[]{"", "", "", "", "", "", ""});
@@ -58,7 +56,7 @@ public class GUI
         removeBtn = new JButton("Remove");
         removeBtn.setBounds(390, 280, 85, 25);
         removeBtn.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        removeBtn.addActionListener(new ActionListener(){
+        removeBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
@@ -94,7 +92,7 @@ public class GUI
         computeBtn = new JButton("Compute");
         computeBtn.setBounds(390, 450, 85, 25);
         computeBtn.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        computeBtn.addActionListener(new ActionListener(){
+        computeBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String selected = (String) option.getSelectedItem();
@@ -136,26 +134,19 @@ public class GUI
                         return;
                 }
 
-                for (int i = 0; i < model.getRowCount(); i++)
-                {
+                for (int i = 0; i < model.getRowCount(); i++) {
                     String process = (String) model.getValueAt(i, 0);
                     int at = Integer.parseInt((String) model.getValueAt(i, 1));
                     int bt = Integer.parseInt((String) model.getValueAt(i, 2));
                     int pl;
 
-                    if (selected.equals("PSN") || selected.equals("PSP"))
-                    {
-                        if (!model.getValueAt(i, 3).equals(""))
-                        {
+                    if (selected.equals("PSN") || selected.equals("PSP")) {
+                        if (!model.getValueAt(i, 3).equals("")) {
                             pl = Integer.parseInt((String) model.getValueAt(i, 3));
-                        }
-                        else
-                        {
+                        } else {
                             pl = 1;
                         }
-                    }
-                    else
-                    {
+                    } else {
                         pl = 1;
                     }
 
@@ -164,8 +155,7 @@ public class GUI
 
                 scheduler.process();
 
-                for (int i = 0; i < model.getRowCount(); i++)
-                {
+                for (int i = 0; i < model.getRowCount(); i++) {
                     String process = (String) model.getValueAt(i, 0);
                     Row row = scheduler.getRow(process);
                     model.setValueAt(row.getWaitingTime(), i, 4);
@@ -204,39 +194,34 @@ public class GUI
         frame.pack();
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         new GUI();
     }
 
-    class CustomPanel extends JPanel
-    {
+    class CustomPanel extends JPanel {
         private List<Event> timeline;
 
         @Override
-        protected void paintComponent(Graphics g)
-        {
+        protected void paintComponent(Graphics g) {
             super.paintComponent(g);
 
-            if (timeline != null)
-            {
+            if (timeline != null) {
+            int x = 30;
+            int y = 20;
 //                int width = 30;
-
-                for (int i = 0; i < timeline.size(); i++)
-                {
+                for (int i = 0; i < timeline.size(); i++) {
                     Event event = timeline.get(i);
-                    int x = 30 * (i + 1);
-                    int y = 20;
+                    int width = event.getFinishTime() - event.getStartTime();
 
-                    g.drawRect(x, y, 30, 30);
+                    g.drawRect(x, y, width * 4, 30);
                     g.setFont(new Font("Segoe UI", Font.BOLD, 13));
-                    g.drawString(event.getProcessName(), x + 10, y + 20);
+                    g.drawString(event.getProcessName(), x + width * 2 - 3, y + 20);
                     g.setFont(new Font("Segoe UI", Font.PLAIN, 11));
                     g.drawString(Integer.toString(event.getStartTime()), x - 5, y + 45);
 
-                    if (i == timeline.size() - 1)
-                    {
-                        g.drawString(Integer.toString(event.getFinishTime()), x + 27, y + 45);
+                    x += width * 4;
+                    if (i == timeline.size() - 1) {
+                        g.drawString(Integer.toString(event.getFinishTime()), x, y + 45);
                     }
 
 //                    width += 30;
@@ -246,8 +231,7 @@ public class GUI
             }
         }
 
-        public void setTimeline(List<Event> timeline)
-        {
+        public void setTimeline(List<Event> timeline) {
             this.timeline = timeline;
             repaint();
         }
