@@ -3,12 +3,12 @@ public class Row {
     private String processName;
     private int arrivalTime;
     private int burstTime;
-    private int priority;
+    private double priority;
     private int waitingTime;
     private int turnaroundTime;
     private int responseTime;
 
-    public Row(String processName, int arrivalTime, int burstTime, int priority, int waitingTime, int turnaroundTime, int responseTime) {
+    public Row(String processName, int arrivalTime, int burstTime, double priority, int waitingTime, int turnaroundTime, int responseTime) {
         this.processName = processName;
         this.arrivalTime = arrivalTime;
         this.burstTime = burstTime;
@@ -17,7 +17,7 @@ public class Row {
         this.turnaroundTime = turnaroundTime;
     }
 
-    public Row(String processName, int arrivalTime, int burstTime, int priority) {
+    public Row(String processName, int arrivalTime, int burstTime, double priority) {
         this(processName, arrivalTime, burstTime, priority, 0, 0, 0);
     }
 
@@ -34,7 +34,7 @@ public class Row {
 
     public int getBurstTime() { return burstTime; }
 
-    public int getPriority() { return priority; }
+    public double getPriority() { return priority; }
 
     public int getWaitingTime() { return waitingTime; }
 
@@ -44,7 +44,7 @@ public class Row {
 
     // setter
 
-    public void setPriority(int priority) { this.priority = priority; }
+    public void setPriority(double priority) { this.priority = priority; }
 
     public void setBurstTime(int burstTime)
     {

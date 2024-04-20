@@ -37,7 +37,7 @@ public class HRN extends CPUSchedulingAlgorithm {
             // priority = (대기 시간 + CPU 사용 시간) / CPU 사용시간
             for (Row row : availableRows) {
                 row.setWaitingTime(time - row.getArrivalTime());
-                row.setPriority((row.getWaitingTime() + row.getBurstTime()) / row.getBurstTime());
+                row.setPriority(((double)row.getWaitingTime() + row.getBurstTime()) / row.getBurstTime());
             }
 
             /*
